@@ -1,0 +1,15 @@
+{
+  "name": "web3",
+  "homepage": "https://github.com/ethereum/ethereum.js",
+  "version": "3.0.0",
+  "_release": "3.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v3.0.0",
+    "commit": "0cb67d7b306d8c159d1db7fd0e0d58a294017913"
+  },
+  "_source": "https://github.com/ethereum/ethereum.js.git",
+  "_target": "^3.0.0",
+  "_originalSource": "web3",
+  "_direct": true
+}
