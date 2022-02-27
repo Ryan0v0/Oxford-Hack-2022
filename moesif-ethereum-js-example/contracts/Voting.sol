@@ -1,4 +1,4 @@
-pragma solidity ^0.8.3;
+pragma solidity ^0.5.16;
 
 contract SimpleVoting {
     
@@ -8,16 +8,8 @@ contract SimpleVoting {
         uint votedProposalId;   
     }
 
-    struct PluralVoter{
-        bool isRegistered;
-        uint votesCast;
-        mapping(uint => uint) votedProposalsId;
-        // fixed competency;
-    }
-
     struct Proposal {
         string description;   
-        // string profile;
         uint voteCount; 
     }
 
@@ -33,7 +25,6 @@ contract SimpleVoting {
     WorkflowStatus public workflowStatus;
     address public administrator;
     mapping(address => Voter) public voters;
-    mapping(address => PluralVoter) public pluralvoters;
     Proposal[] public proposals;
     uint private winningProposalId;
 
@@ -45,7 +36,7 @@ contract SimpleVoting {
     }
     
     modifier onlyRegisteredVoter() {
-        require(pluralvoters[msg.sender].isRegistered, 
+        require(voters[msg.sender].isRegistered, 
            "the caller of this function must be a registered voter");
        _;
     }
@@ -115,7 +106,7 @@ contract SimpleVoting {
         WorkflowStatus newStatus
     );
     
-    constructor(){
+    constructor() public{
         administrator = msg.sender;
         workflowStatus = WorkflowStatus.RegisteringVoters;
     }
@@ -123,12 +114,12 @@ contract SimpleVoting {
     function registerVoter(address _voterAddress) 
         public onlyAdministrator onlyDuringVotersRegistration {
         
-        require(!pluralvoters[_voterAddress].isRegistered, 
+        require(!voters[_voterAddress].isRegistered, 
            "the voter is already registered");
         
-        pluralvoters[_voterAddress].isRegistered = true;
-        pluralvoters[_voterAddress].votesCast = 0;
-        // pluralvoters[_voterAddress].votedProposalsId;
+        voters[_voterAddress].isRegistered = true;
+        voters[_voterAddress].hasVoted = false;
+        voters[_voterAddress].votedProposalId = 0;
         
         emit VoterRegisteredEvent(_voterAddress);
     }
@@ -156,7 +147,6 @@ contract SimpleVoting {
         public onlyRegisteredVoter onlyDuringProposalsRegistration {
         proposals.push(Proposal({
             description: proposalDescription,
-            // profile: proposalProfile,
             voteCount: 0
         }));
         
@@ -204,18 +194,6 @@ contract SimpleVoting {
         emit VotedEvent(msg.sender, proposalId);
     }
 
-    function pluralVote(uint proposalId, uint votes)
-        onlyRegisteredVoter
-        onlyDuringVotingSession public {
-        require(pluralvoters[msg.sender].votesCast + votes<=10, "Too many votes!");
-        pluralvoters[msg.sender].votesCast += votes;
-        pluralvoters[msg.sender].votedProposalsId[proposalId] += votes;
-        proposals[proposalId].voteCount += votes;
-
-        emit VotedEvent(msg.sender, proposalId);
-        }
-        
-
     function tallyVotes() onlyAdministrator onlyAfterVotingSession public {
         uint winningVoteCount = 0;
         uint winningProposalIndex = 0;
@@ -253,7 +231,7 @@ contract SimpleVoting {
     
     function isRegisteredVoter(address _voterAddress) public view
         returns (bool) {
-        return pluralvoters[_voterAddress].isRegistered;
+        return voters[_voterAddress].isRegistered;
      }
      
      function isAdministrator(address _address) public view 
