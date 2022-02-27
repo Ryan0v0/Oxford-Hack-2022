@@ -69,9 +69,8 @@ Since none of the members had come into contact with web3/dapp development, the 
 - VotingApp is the latest version that is integrating flask with a plainer version of the frontend. It would support more functionalities in the future.
 
 ## Setup
-### SimpleVotingUI
 
-### VotingApp
+### VotingApp with Flask and Solidity
 1. Make sure you are running on `Linux` or `Mac`
 2. Install Solidity Compiler `solc=0.4.24`, this could be done using the tool `solc-select` so:
     ```
@@ -92,3 +91,13 @@ Since none of the members had come into contact with web3/dapp development, the 
    cd /path/to/VotingApp
    flask run
    ```
+### VotingApp with Solidity only
+
+- With appropriate dependencies installed, we first run `ganache > transactions.txt` and the terminal shows a list of available accounts on the ad-hoc blockchain.
+- On another terminal, we run `truffle migrate --reset` to compile the \*.sol programs and transfer them onto our blockchain, which will be prompted in the transactions.txt file if successful.
+- Finally, copy the generated \*.json files from ./build/contracts directory into the frontend ./contracts directory.
+
+### SimpleVotingUI
+
+- Frontend implementation for voting system, where `admin.html` corresponds to the administrator management page and `voter.html` the voters' proposal, display, and voting page. The `login.html` page is work in process.
+- With updated \*.json files from ./contracts folder, we can simply run `node webserver.js` to start the local server
