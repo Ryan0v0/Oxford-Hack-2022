@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
+import Voting from '../build/contracts/SimpleVoting.json'
 import getWeb3 from './utils/getWeb3'
 
 import './css/oswald.css'
@@ -47,10 +48,13 @@ class App extends Component {
 
     const contract = require('truffle-contract')
     const simpleStorage = contract(SimpleStorageContract)
+    const voting = contract(Voting)
     simpleStorage.setProvider(this.state.web3.currentProvider)
+    voting.setProvider(this.state.web3.currentProvider)
 
     // Declaring this for later so we can chain functions on SimpleStorage.
     var simpleStorageInstance
+    var votingInstance
 
     // Get accounts.
     this.state.web3.eth.getAccounts((error, accounts) => {
@@ -76,6 +80,33 @@ class App extends Component {
         }))
       })
     })
+  
+    this.state.web3.eth.getAccounts((error, accounts) => {
+      voting.deployed().then((instance) => {
+        votingInstance = instance
+
+        this.setState(prevState => ({
+          ...prevState,
+          accounts,
+          votingInstance
+        }));
+        let votingAdministrator = await simpleVotingInstance.administrator();
+        await simpleVotingInstance.startProposalsRegistration(
+          {from: votingAdministrator})
+        // Stores a given value, 5 by default.
+        return votingInstance.set(5, {from: accounts[0]})
+      }).then((result) => {
+        // Get the value from the contract to prove it worked.
+        return simpleStorageInstance.get.call(accounts[0])
+      }).then((result) => {
+        // Update state with the result.
+        return this.setState(prevState => ({
+          ...prevState,
+          storageValue: result.c[0]
+        }))
+      })
+    })
+
   }
 
   addToSimpleStorage() {
@@ -120,6 +151,7 @@ class App extends Component {
               <p>If your contracts compiled and migrated successfully, below will show a stored value of 5 (by default).</p>
               <p>Try changing the value stored on <strong>line 59</strong> of App.js.</p>
               <p>The stored value is: {this.state.storageValue}</p>
+              <p>Proposals to vote for: {} </p>
               <hr />
               {/* <h2>Accounts in this web3</h2>
               <pre>
