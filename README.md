@@ -69,7 +69,6 @@ Since none of the members had come into contact with web3/dapp development, the 
 - VotingApp is the latest version that is integrating flask with a plainer version of the frontend. It would support more functionalities in the future.
 
 ## Setup
-### SimpleVotingUI
 
 ### VotingApp with Flask and Solidity
 1. Make sure you are running on `Linux` or `Mac`
