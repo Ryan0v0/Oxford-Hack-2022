@@ -75,7 +75,7 @@ Since none of the members had come into contact with web3/dapp development, the 
 1. Make sure you are running on `Linux` or `Mac`
 2. Install Solidity Compiler `solc=0.4.24`, this could be done using the tool `solc-select` so:
     ```
-   sudo apt-get install solc-select
+   pip3 install solc-select
    solc-select install 0.4.24
    solc-select use 0.4.24
    ```
