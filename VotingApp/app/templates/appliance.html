@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">{{appliance.name}}</h1>
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row animated--grow-in">
+        <div class="col-lg-10 d-inline-flex">
+            <div class="card mb-4 py-2 border-left-primary">
+                <div class="card-body">
+                    You have used the {{appliance.name}}
+                    <h3 class="mx-1 animated--fade-in" style="display:inline; animation-duration: 2500ms">
+                        {{day_use_times}}</h3> times today,
+                    <h3 class="mx-1 animated--fade-in" style="display:inline; animation-duration: 2500ms">
+                        {{week_use_times}}</h3> times past 7 days and
+                    <h3 class="mx-1 animated--fade-in" style="display:inline; animation-duration: 2500ms">
+                        {{month_use_times}}</h3> times past 30 days
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row animated--grow-in" style="animation-delay: 100ms">
+        <div class="col-lg-10 offset-lg-2 d-inline-flex">
+            <div class="card mb-4 py-2 border-left-success">
+                <div class="card-body">
+                    The {{appliance.name}} has used
+                    <h3 class="mx-1 animated--fade-in" style="display:inline; animation-duration: 2500ms">
+                        {{day_use_power|round(1, 'floor')}}</h3>kWh of power today,
+                    <h3 class="mx-1 animated--fade-in" style="display:inline; animation-duration: 2500ms">
+                        {{week_use_power|round(1, 'floor')}}</h3>kWh in the past 7 days and
+                    <h3 class="mx-1 animated--fade-in" style="display:inline; animation-duration: 2500ms">
+                        {{month_use_power|round(1, 'floor')}}</h3>kWh in the past 30 days
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row animated--grow-in" style="animation-delay: 200ms">
+        <div class="col-lg-10 offset-lg-1 d-inline-flex">
+            <div class="card mb-4 py-2 border-left-warning">
+                <div class="card-body">
+                    You usually use {{appliance.name}} in the
+                    <h3 class="mx-1 animated--fade-in" style="display:inline; animation-duration: 2500ms">
+                        {{common_use_period}}</h3>
+                    during the past 30 days
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row animated--grow-in" style="animation-delay: 300ms">
+        <div class="col-lg-10 offset-lg-3 d-inline-flex">
+            <div class="card mb-4 py-2 border-left-danger">
+                <div class="card-body">
+                    The {{appliance.name}} accounts for
+                    <h3 class="mx-1 animated--fade-in" style="display:inline; animation-duration: 2500ms">
+                        {{(power_use_percentage*100)|round(1, 'floor')}}%</h3>
+                    of your house's overall power consumption in the past 30 days
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Row -->
+
+    <div class="row">
+
+        <!-- Area Chart -->
+        <div class="col-xl col-lg">
+            <div class="card shadow mb-4">
+                <!-- Card Header -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Today's Usage</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="todayUsage"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- End Page Content -->
+
+{% endblock content %}
+
+
+{% block script %}
+{{super()}}
+<script>
+  $(function(){
+    draw_area_chart("todayUsage", {{ today_x }}, {{ today_y }});
+  })
+</script>
+{% endblock script %}

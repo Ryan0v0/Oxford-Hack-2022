@@ -1,0 +1,14 @@
+dateutil
+scikit-learn
+sqlalchemy
+werkzeug
+Flask
+WTForms
+requests
+flask-wtf
+flask_migrate
+flask_login
+flask_bootstrap4
+flask_paginate
+matplotlib
+numpy
