@@ -81,10 +81,11 @@ Since none of the members had come into contact with web3/dapp development, the 
    ```
 3. Now install other relevant python libraries (including `Flask`):
    ```
-   pip3 install solc, py-solc
+   pip3 install solc
+   pip3 install py-solc
    pip3 install web3
    pip3 install flask
-   pip3 install dot-env
+   pip3 install python-dotenv
    ```
 4. Change to the VotingApp directory and run the app:
    ```
