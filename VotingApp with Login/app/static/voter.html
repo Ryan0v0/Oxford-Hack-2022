@@ -1,0 +1,70 @@
+<html>
+<head>   
+	<script src="bower_components/web3/dist/web3.min.js"></script>
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/truffle-contract/dist/truffle-contract.js"></script>			
+	<script src="./simplevoting.js"></script>
+</head>
+
+<body>
+	<table>
+		<tr><h1><b>SimpleVoting - Voter</b></h1></tr>
+		<br/>
+		<tr>
+			<table border="0" cellpadding="0" id='currentStatus'> 
+				<tr>
+					<td><b>Current status:</b></td><td id='currentWorkflowStatusMessage'></td>
+					<td></td>
+					<td></td>
+				 </tr>	
+			</table>
+		</tr>	
+		<br/>	
+		<tr><table border="0" cellpadding="0" width="600" id='proposalsTable'> </table></tr>
+		<tr/>
+		<br/>
+		<tr>
+			<table border="0" cellpadding="0" id='user'> 
+				<tr>
+					<td><b>Voter address:</b></td>
+					<td><input type="text" id="voterAddress" width="400" /></td>
+					<td><b>password:</b></td>
+					<td><input type="text" id="voterPassword" width="400" /></td>
+					<td><button onclick="unlockVoter()">Unlock account</button></td>
+					<td id='voterMessage'></td>
+				 </tr>	
+			</table>
+		</tr>
+		<br/>
+		<tr/>
+		<tr><b>Register proposal</b></tr>
+		<tr>		
+			<table border="0" cellpadding="0" id='registerProposal'> 
+				<tr>
+					<td>Proposal description:</td>
+					<td><input type="text" id="proposalDescription" width="400" /></td>
+					<td><button onclick="registerProposal()">Register proposal</button></td>
+					<td id='proposalRegistrationMessage'></td>
+				 </tr>	
+			</table>			
+		</tr>		
+		<br/>
+		<tr/>
+		<tr><b>Vote</b></tr>
+		<tr>		
+			<table border="0" cellpadding="0" id='vote'> 
+				<tr>
+					<td>Proposal Id:</td>
+					<td><input type="text" id="proposalId" width="400" /></td>
+					<td><button onclick="vote()">Vote</button></td>
+					<td id='voteConfirmationMessage'></td>
+				 </tr>	
+			</table>			
+		</tr>	
+		<br/>	
+		<tr><table border="0" cellpadding="0" width="200" id='resultsTable'></table></tr>
+		<tr/>
+		<br/>	
+	</table>
+</body>
+</html>
