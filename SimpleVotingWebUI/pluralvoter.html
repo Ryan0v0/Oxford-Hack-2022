@@ -1,72 +1,92 @@
-<html>
+<!DOCTYPE html>
 <head>   
 	<script src="bower_components/web3/dist/web3.min.js"></script>
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="bower_components/truffle-contract/dist/truffle-contract.js"></script>			
 	<script src="./pluralvoting.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <title>Basic Bootstrap Template</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 
 <body>
+<div class="container">
 	<table>
-		<tr><h1><b>SimpleVoting - Voter</b></h1></tr>
+		<tr><h1><b>Voting - Voter</b></h1></tr>
 		<br/>
 		<tr>
 			<table border="0" cellpadding="0" id='currentStatus'> 
 				<tr>
-					<td><b>Current status:</b></td><td id='currentWorkflowStatusMessage'></td>
+					<td><b>Current status: </b></td><td id='currentWorkflowStatusMessage'></td>
 					<td></td>
 					<td></td>
 				 </tr>	
 			</table>
-		</tr>	
-		<br/>	
+
 		<tr><table border="0" cellpadding="0" width="600" id='proposalsTable'> </table></tr>
 		<tr/>
-		<br/>
+		<hr/>
 		<tr>
-			<table border="0" cellpadding="0" id='user'> 
-				<tr>
-					<td><b>Voter address:</b></td>
-					<td><input type="text" id="voterAddress" width="400" /></td>
-					<td><b>password:</b></td>
-					<td><input type="text" id="voterPassword" width="400" /></td>
-					<td><button onclick="unlockVoter()">Unlock account</button></td>
-					<td id='voterMessage'></td>
-				 </tr>	
-			</table>
-		</tr>
+			<div class="container">
+				<h6>Voter address</h6>
+				<div class="row align-items-left g-4">
+
+					<div class="col-auto">
+					<label class="visually-hidden" for="voterAddress">Voter Address</label>
+					<input class="form-control" type="text" id="voterAddress" width="400" placeholder="Proposal Description"/>
+					</div>
+					<div class="col-auto">
+					<label class="visually-hidden" for="voterPassword">Password</label>
+					<input class="form-control" type="text" id="voterPassword" width="400" placeholder="Password"/>
+					</div>
+					<div class="col-auto">
+					<td><button class="btn btn-outline-primary" onclick="unlockVoter()">Unlock account</button></td>
+					</div>
+					<table><td id='voterMessage'></td></table>
+			</div>
+			</div>
+
 		<br/>
-		<tr/>
-		<tr><b>Register proposal</b></tr>
-		<tr>		
-			<table border="0" cellpadding="0" id='registerProposal'> 
-				<tr>
-					<td>Proposal description:</td>
-					<td><input type="text" id="proposalDescription" width="400" /></td>
+		<div class="container">
+			<h6>Register proposal</h6>	
+				<div class="row align-items-left g-4">
+					<div class="col-auto">
+					<label class="visually-hidden" for="proposalDescription">Proposal Description</label>
+					<input class="form-control" type="text" id="proposalDescription" width="400" placeholder="Proposal Description"/>
+					</div>
+					<div class="col-auto">
 					<!-- <td><input type="text" id="proposalProfile" width="400" /></td> -->
-					<td><button onclick="registerProposal()">Register proposal</button></td>
-					<td id='proposalRegistrationMessage'></td>
-				 </tr>	
-			</table>			
-		</tr>		
+					<td><button class="btn btn-secondary" onclick="registerProposal()">Register proposal</button></td>
+					<table border="0" cellpadding="0" id='registerProposal'> <td id='proposalRegistrationMessage'></td></table>	
+					</div>
+				</div>
+					
+		</div>
 		<br/>
-		<tr/>
-		<tr><b>Vote</b></tr>
-		<tr>		
-			<table border="0" cellpadding="0" id='vote'> 
-				<tr>
-					<td>Proposal Id:</td>
-					<td><input type="text" id="proposalId" width="400" /></td>
-                    <td><input type="int" id="numVotes" width="400" /></td>
-					<td><button onclick="pluralVote()">Vote</button></td>
-					<td id='voteConfirmationMessage'></td>
-				 </tr>	
-			</table>			
+		
+		<div class="container">
+			<h6>Vote</h6>
+				<div class="row align-items-left g-4">
+					<div class="col-auto">
+						<label class="visually-hidden" for="proposalID">Proposal ID</label>
+						<input class="form-control" type="text" id="proposalID" width="400" placeholder="Proposal ID"/>
+					</div>
+					<div class="col-auto">
+						<label class="visually-hidden" for="numVotes">Number of votes</label>
+						<input class="form-control" type="text" id="numVotes" width="400" placeholder="Number of Votes"/>
+					</div>
+					<div class="col-auto">
+					<button class="btn btn-success" onclick="pluralVote()">Vote</button>
+					</div>
+					<table><td id='voteConfirmationMessage'></td></table>
+				</div>	
 		</tr>	
 		<br/>	
 		<tr><table border="0" cellpadding="0" width="200" id='resultsTable'></table></tr>
-		<tr/>
-		<br/>	
+	</div>
 	</table>
 </body>
 </html>
