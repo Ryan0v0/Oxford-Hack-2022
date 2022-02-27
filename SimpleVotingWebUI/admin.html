@@ -1,100 +1,111 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>   
 	<script src="bower_components/web3/dist/web3.min.js"></script>
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="bower_components/truffle-contract/dist/truffle-contract.min.js"></script>	
-	<script src="./simplevoting.js"></script>
+	<script src="./pluralvoting.js"></script>
+
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <title>Basic Bootstrap Template</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 
 <body>
-	<table>
-		<tr><h1><b>SimpleVoting - Admin</b></h1></tr>
-		<tr/>
-		<tr>
-			<table border="0" cellpadding="0" id='currentStatus'> 
-				<tr>
-					<td><b>Current status:</b></td>
-					<td id='currentWorkflowStatusMessage'></td>
-					<td></td>
-					<td></td>
-				 </tr>	
-			</table>
-		</tr>	
-		<br/>		
-		<tr/>
-		<tr>
-			<table border="0" cellpadding="0" id='user'> 
-				<tr>
-					<td><b>Admin address:</b></td>
-					<td><input type="text" id="adminAddress" width="400" /></td>
-					<td><b>password:</b></td>
-					<td><input type="text" id="adminPassword" width="400" /></td>
-					<td><button onclick="unlockAdmin()">Unlock account</button></td>
-					<td id='adminMessage'></td>
-				 </tr>	
-			</table>
-		</tr>
+	<div class="container">
+
+			<div class="container" border="0" cellpadding="0" id='currentStatus'> 
+				<h1><b>Voting - Admin</b></h1>
+				
+					<b>Current status:</b>
+					<table><td id='currentWorkflowStatusMessage'></td></table>
+			</div>
+		<hr/>		
+			<div class="container">
+				<h4>Administrator account unlock</h4>
+			<div class="row align-items-left g-4">
+				<div class="col-auto">
+					<label class="visually-hidden" for="adminAddress">Admin address</label>
+					<input class="form-control" type="text" id="adminAddress" placeholder="Admin address">
+				</div>
+				<div class="col-auto">
+					<label class="visually-hidden" for="adminPassword">Admin password</label>
+					<input class="form-control" type="text" id="adminPassword" placeholder="Admin password">
+				</div>
+				<div class="col-auto">
+					<td><button class="btn btn-outline-primary" onclick="unlockAdmin()">Unlock account</button></td>
+					<table><td id='adminMessage'></td>	</table>
+				</div>
+			</div>
+			</div>
+		
+		
 		<br/>
-		<tr/>
-		<tr><b>Register voter</b></tr>
-		<tr>
-			<table border="0" cellpadding="0" id='registerVoter'> 
-				<tr>
-					<td>Voter address:</td>
-					<td><input type="text" id="voterAddress" width="400" /></td>
-					<td><button onclick="registerVoter()">Register</button></td>
-					<td id='voterRegistrationMessage'></td>
-				 </tr>	
-			</table>
-		</tr>
+			<div class="container"> 
+				<h4>Register voter</h4>
+				<div class="row align-items-center g-4">
+					<div class="col-auto">
+						<label class="visually-hidden" for="voterAddress">Voter address</label>
+						<input class="form-control" type="text" id="voterAddress" placeholder="Voter address">
+					</div>
+					<div class="col-auto">
+					<td><button class="btn btn-outline-primary" onclick="registerVoter()">Register</button></td>
+					</div>
+
+					<table><td id='voterRegistrationMessage'></td></table>
+				</div>
+			</div>
 		<br/>
-		<tr><b>Check registration</b></tr>
-		<tr>
-			<table border="0" cellpadding="0" id='checkRegistration'> 
-				<tr>
+			
+			<!-- <div class="container" id='checkRegistration'>
+				<b>Check registration</b> 
+				
 					<td>Address:</td>
-					<td><input type="text" id="address" width="400" /></td>
-					<td><button onclick="checkVoterRegistration()">Check Registration</button></td>
+					<td><input class="form-control" type="text" id="address" width="400" /></td>
+					<td><button class="btn btn-outline-secondary" onclick="checkVoterRegistration()">Check Registration</button></td>
 					<td id='registrationVerificationMessage'></td>
-				 </tr>	
-			</table>
-		</tr>	
-		<br/>
-		<tr><b>Proposals registration session</b></tr>
-		<tr>
-			<table border="0" cellpadding="0" id='proposalsRegistration'> 
-				<tr>
-					<td><button onclick="startProposalsRegistration()">Start</button></td>
-					<td><button onclick="endProposalsRegistration()">End</button></td>
-					<td id='proposalsRegistrationMessage'></td>
-				 </tr>	
-			</table>
-		</tr>
-		</tr>	
-		<br/>
-		<tr><b>Voting session</b></tr>
-		<tr>
-			<table border="0" cellpadding="0" id='votingSession'> 
-				<tr>
-					<td><button onclick="startVotingSession()">Start</button></td>
-					<td><button onclick="endVotingSession()">End</button></td>
-					<td id='votingSessionMessage'></td>
-				 </tr>	
-			</table>
-		</tr>	
-				<br/>
-		<tr><b>Tally votes</b></tr>
-		<tr>
-			<table border="0" cellpadding="0" id='voteTallying'> 
-				<tr>
-					<td><button onclick="tallyVotes()">Tally votes</button></td>
-					<td id='votingTallyingMessage'></td>
-				 </tr>	
-			</table>
-		</tr>	
+			</div> -->
+		
+		<hr/>
+			<div class="container" border="0" cellpadding="0" id='proposalsRegistration'> 
+				<h6>Proposals registration session</h6>
+				<div class="row align-items-center g-4">
+					<div class="col-auto">
+					<td><button class="btn btn-success" onclick="startProposalsRegistration()">Start</button></td>
+					</div>
+					<div class="col-auto">
+					<td><button class="btn btn-warning" onclick="endProposalsRegistration()">End</button></td>
+					</div>
+					<table><td id='votingSessionMessage'></td></table>
+				</div>
+			</div>
+					<table><td id='proposalsRegistrationMessage'></td></table>
+
+			<div class="container" id='votingSession'> 
+				<h6>Voting session</h6>
+				<div class="row align-items-center g-4">
+					<div class="col-auto">
+					<td><button class="btn btn-success" onclick="startVotingSession()">Start</button></td>
+					</div>
+					<div class="col-auto">
+					<td><button class="btn btn-warning" onclick="endVotingSession()">End</button></td>
+					</div>
+					<table><td id='votingSessionMessage'></td></table>
+				</div>
+			</div>
+		<div class="container"> 
+			
+			<table class="table" border="0" cellpadding="0" id='voteTallying'> 
+			<br/>
+			<button class="btn btn-outline-dark" onclick="tallyVotes()"><b>Tally votes</b></button>
+			<td id='votingTallyingMessage'></td></table>	
+		</div>
+			
 		<br/>	
-		<tr><table border="0" cellpadding="0" width="200" id='resultsTable'></table></tr>
-		<tr/>		
-	</table>
+		<table border="0" cellpadding="0" width="200" id='resultsTable'></table>		
+		</div>
 </body>
 </html>

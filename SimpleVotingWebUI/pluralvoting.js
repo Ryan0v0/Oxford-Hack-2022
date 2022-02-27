@@ -453,11 +453,12 @@ function getProposalDescription(proposalId)
 	  .then(instance => instance.getProposalDescription(proposalId));
 }
 
-function vote() {
+function pluralVote() {
 	$("#voteConfirmationMessage").html('');
 	
 	var voterAddress = $("#voterAddress").val();
 	var proposalId = $("#proposalId").val();
+    var numVotes = $("#numVotes").val();
 	
 	SimpleVoting.deployed()
 	.then(instance => instance.isRegisteredVoter(voterAddress))
@@ -487,7 +488,7 @@ function vote() {
 								else 
 								{
 									SimpleVoting.deployed()
-									   .then(instance => instance.vote(proposalId, {from:voterAddress, gas:200000}))
+									   .then(instance => instance.pluralVote(proposalId, numVotes, {from:voterAddress, gas:200000}))
 									   .catch(e => $("#voteConfirmationMessage").html(e));
 								}
 							});
