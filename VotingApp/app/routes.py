@@ -19,7 +19,7 @@ with open("data.json", 'r') as f:
 def voter():
     # Create the contract instance with the newly-deployed address
     voting = w3.eth.contract(address=contract_address, abi=abi)
-    filter = voting.events.VoterRegisteredEvent.createFilter(address=contract_address)
+    filter = voting.events.VoterRegisteredEvent.createFilter(fromBlock='pending')
     print(filter.get_new_entries())
 
     return app.send_static_file("voter.html")
